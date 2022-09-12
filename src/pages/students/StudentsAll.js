@@ -3,9 +3,17 @@ import StudentWrapper from "../../components/students/StudentWrapper";
 import StudentSearch from "../../components/students/StudentSearch";
 import { useEffect, useState } from "react";
 
+const dummyStudentsData = require("../../components/students/dummyStudents.json");
+
 export default function StudentsAll() {
 
-  const dummyStudentsData = require("../../components/students/dummyStudents.json");
+  const [student, setStudent] = useState({});
+
+  useEffect( () => {
+    fetch('http://localhost:4000/api/v0/students')
+      .then(data => data.json())
+      .then(data => console.log(data))
+  })
 
   const [query, setQuery] = useState('');
 
