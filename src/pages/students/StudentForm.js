@@ -63,6 +63,24 @@ export default function StudentForm() {
     } catch (err) {
       console.log("Error:", err);
       setErrorState(true);
+      setStudentForm({
+        firstName: "",
+        lastName: "",
+        tckn: "",
+        phone: "",
+        address: "",
+        secondaryContact: "",
+        workOrSchool: "",
+        email: "",
+        birthDate: "",
+        birthPlace: "",
+        parentName: "",
+        parentTckn: "",
+        parentPhone: "",
+        parentAddress: "",
+        studentNotes: "",
+        creator: UserAuthContext.auth.username,
+      });
     }
   };
 
