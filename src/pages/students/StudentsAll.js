@@ -38,7 +38,7 @@ export default function StudentsAll() {
               tckn={student.tckn}
               phone={student.phone}
               email={student.email}
-              note={student.note}
+              note={student.studentNotes}
             />
           );
         })}
