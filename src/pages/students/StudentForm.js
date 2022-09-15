@@ -43,7 +43,7 @@ export default function StudentForm() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:4000/api/v0/students", {
+      const response = await fetch("https://pear-shy-betta.cyclic.app/api/v0/students", {
         method: "POST",
         body: JSON.stringify(studentForm),
         headers: {
