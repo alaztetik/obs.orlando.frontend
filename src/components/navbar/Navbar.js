@@ -19,10 +19,10 @@ export default function Navbar() {
         <NavLogo imageSource="logo_orlando_min.png" />
         {isLoggedIn && (
           <>
-            <NavButton link="/students" buttonText="Öğrenci" />
-            <NavButton link="/education" buttonText="Eğitim" />
+            <NavButton disabled link="/students" buttonText="Öğrenci" />
+            {/* <NavButton link="/education" buttonText="Eğitim" />
             <NavButton link="/payments" buttonText="Muhasebe" />
-            <NavButton link="/reports" buttonText="Rapor" />
+            <NavButton link="/reports" buttonText="Rapor" /> */}
           </>
         )}
       </div>

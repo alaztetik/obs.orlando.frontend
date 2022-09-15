@@ -49,7 +49,6 @@ export default function Login() {
       }
 
       const result = await response.json(); // response format: {username, role}
-      //console.log(result);
       setAuth(result);
       setErrorOnLogin(false);
 
@@ -62,7 +61,6 @@ export default function Login() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    //console.log(formData);
     authenticateUser(formData)
   }
 
@@ -70,30 +68,34 @@ export default function Login() {
     <div className="login">
 
       {errorOnLogin && <p className="border text-center text-red-700">Giriş bilgilerinizi kontrol edin...</p>}
+
       {auth.role === "none" 
       ? (
         <form className="flex w-2/6" onSubmit={handleSubmit}>
-          <label className="block">
-            Kullanıcı:
+          <label className="block m-1 p-1 text-orlando-gray">
+            Kullanıcı Adı:
             <input
               type="text"
               name="username"
-              className="border border-red-900"
+              className="border-2 border-orlando-slate focus:border-orlando-orange focus:outline-none"
               value={formData.username}
               onChange={handleUsernameChange}
+              required
+              autoFocus
             />
           </label>
-          <label className="block">
+          <label className="block m-1 p-1 text-orlando-gray">
             Şifre:
             <input
               type="password"
               name="password"
-              className="border border-red-900"
+              className="border-2 border-orlando-slate focus:border-orlando-orange focus: outline-none"
               value={formData.password}
               onChange={handlePasswordChange}
+              required
             />
           </label>
-          <button className="rounded block text-orlando-white bg-orlando-gray p-3 m-1 hover:bg-orlando-slate">Giriş</button>
+          <button className="rounded block text-orlando-white bg-orlando-gray p-3 m-1 hover:bg-orlando-orange">Giriş</button>
         </form>
       ) : (
         <p className="p-2">Sisteme giriş yaptınız: <span className="font-bold">{auth.username}</span></p>
