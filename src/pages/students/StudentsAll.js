@@ -3,16 +3,15 @@ import StudentWrapper from "../../components/students/StudentWrapper";
 import StudentSearch from "../../components/students/StudentSearch";
 import { useEffect, useState } from "react";
 
-const dummyStudentsData = require("../../components/students/dummyStudents.json");
 
 export default function StudentsAll() {
 
-  const [student, setStudent] = useState({});
+  const [students, setStudents] = useState([]);
 
   useEffect( () => {
     fetch('http://localhost:4000/api/v0/students')
       .then(data => data.json())
-      .then(data => console.log(data))
+      .then(data => setStudents(data))
   })
 
   const [query, setQuery] = useState('');
@@ -21,7 +20,7 @@ export default function StudentsAll() {
     setQuery(input.toLowerCase());
   }
 
-  const searchedData = dummyStudentsData.filter(student => Object.values(student).join().toLowerCase().includes(query));
+  const searchedData = students.filter(student => Object.values(student).join().toLowerCase().includes(query));
 
   return (
     <div className="studens-all">
