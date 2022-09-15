@@ -22,7 +22,7 @@ export default function StudentForm() {
     parentTckn: "",
     parentPhone: "",
     parentAddress: "",
-    studentNote: "",
+    studentNotes: "",
     creator: UserAuthContext.auth.username,
   });
 
@@ -229,11 +229,11 @@ export default function StudentForm() {
 
         <FormElement labelName="Öğrenci Özet Notu:">
           <input
-            name="studentNote"
+            name="studentNotes"
             type="text"
             autoComplete="off"
             onChange={handleChange}
-            value={studentForm.studentNote}
+            value={studentForm.studentNotes}
           />
         </FormElement>
 
