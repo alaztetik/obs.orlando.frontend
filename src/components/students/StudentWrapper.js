@@ -1,4 +1,5 @@
 export default function StudentWrapper(props) {
+
   return (
     <table className="table-auto border m-3">
       <thead>

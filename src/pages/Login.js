@@ -98,7 +98,7 @@ export default function Login() {
           <button className="rounded block text-orlando-white bg-orlando-gray p-3 m-1 hover:bg-orlando-orange">Giriş</button>
         </form>
       ) : (
-        <p className="p-2">Sisteme giriş yaptınız: <span className="font-bold">{auth.username}</span></p>
+        <p className="p-2">Sisteme giriş yaptınız: <span className="font-bold text-orlando-orange">{auth.username}</span></p>
       )}
     </div>
   );

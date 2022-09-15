@@ -7,12 +7,14 @@ import { useEffect, useState } from "react";
 export default function StudentsAll() {
 
   const [students, setStudents] = useState([]);
-
+  
   useEffect( () => {
     fetch('https://pear-shy-betta.cyclic.app/api/v0/students')
-      .then(data => data.json())
-      .then(data => setStudents(data))
-  })
+    .then(data => data.json())
+    .then(data => setStudents(data));
+  }, []);
+
+  let numberOfStudents = students.length;
 
   const [query, setQuery] = useState('');
 
@@ -29,9 +31,9 @@ export default function StudentsAll() {
 
       <StudentWrapper className="students-page">
         {searchedData.map((student) => {
-          
           return (
             <Student
+              no={numberOfStudents--}
               key={student.tckn}
               firstName={student.firstName}
               lastName={student.lastName}
