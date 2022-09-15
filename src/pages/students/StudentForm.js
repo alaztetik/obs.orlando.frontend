@@ -177,7 +177,7 @@ export default function StudentForm() {
           />
         </FormElement>
 
-        <FormElement labelName="Doğum Tarihi (ay/gün/yıl)">
+        <FormElement labelName="Doğum Tarihi">
           <input
             name="birthDate"
             type="date"
