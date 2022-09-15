@@ -1,19 +1,30 @@
-
+import { useState, useEffect, useContext } from "react";
+import AuthContext from "../../context/AuthProvider";
 import NavButton from "./NavButton";
 import NavLogo from "./NavLogo";
 
 export default function Navbar() {
-  
-  return (
 
+  const UserAuthContext = useContext(AuthContext);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    if (UserAuthContext?.auth.role !== 'none') setIsLoggedIn(true)
+  }, [UserAuthContext?.auth?.role]);
+
+  return (
     <nav>
       <div className="flex bg-orlando-gray">
-          
-          <NavLogo imageSource="logo_orlando_min.png" />
-          <NavButton link="/students" buttonText="Öğrenci" />
-          <NavButton link="/education" buttonText="Eğitim" />
-          <NavButton link="/payments" buttonText="Muhasebe" />
-          <NavButton link="/reports" buttonText="Rapor" />
+        <NavLogo imageSource="logo_orlando_min.png" />
+        {isLoggedIn && (
+          <>
+            <NavButton link="/students" buttonText="Öğrenci" />
+            <NavButton link="/education" buttonText="Eğitim" />
+            <NavButton link="/payments" buttonText="Muhasebe" />
+            <NavButton link="/reports" buttonText="Rapor" />
+          </>
+        )}
       </div>
     </nav>
   );
