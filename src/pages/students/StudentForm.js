@@ -242,7 +242,7 @@ export default function StudentForm() {
           />
         </FormElement>
 
-        <button className="p-1 m-1 mt-6 border rounded bg-orlando-gray hover:bg-orlando-orange text-orlando-white">
+        <button className="p-1 m-1 mt-6 border rounded bg-orlando-gray hover:bg-orlando-orange text-orlando-white hover:text-orlando-gray">
           Ekle
         </button>
       </form>
