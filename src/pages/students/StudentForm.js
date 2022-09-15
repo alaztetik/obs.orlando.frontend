@@ -87,6 +87,7 @@ export default function StudentForm() {
             autoFocus
             onChange={handleChange}
             value={studentForm.firstName}
+            className="border-2 border-orlando-slate focus:border-orlando-orange focus:outline-none"
           />
         </FormElement>
 
@@ -98,6 +99,7 @@ export default function StudentForm() {
             required
             onChange={handleChange}
             value={studentForm.lastName}
+            className="border-2 border-orlando-slate focus:border-orlando-orange focus:outline-none"
           ></input>
         </FormElement>
 
@@ -109,6 +111,7 @@ export default function StudentForm() {
             required
             onChange={handleChange}
             value={studentForm.tckn}
+            className="border-2 border-orlando-slate focus:border-orlando-orange focus:outline-none"
           ></input>
         </FormElement>
 
@@ -121,6 +124,7 @@ export default function StudentForm() {
             required
             onChange={handleChange}
             value={studentForm.phone}
+            className="border-2 border-orlando-slate focus:border-orlando-orange focus:outline-none"
           ></input>
         </FormElement>
 
@@ -132,6 +136,7 @@ export default function StudentForm() {
             required
             onChange={handleChange}
             value={studentForm.address}
+            className="border-2 border-orlando-slate focus:border-orlando-orange focus:outline-none"
           ></input>
         </FormElement>
 
@@ -144,16 +149,18 @@ export default function StudentForm() {
             required
             onChange={handleChange}
             value={studentForm.secondaryContact}
+            className="border-2 border-orlando-slate focus:border-orlando-orange focus:outline-none"
           ></input>
         </FormElement>
 
-        <FormElement labelName="İş / Okul-Bölüm">
+        <FormElement labelName="İş / Okul-Bölüm:">
           <input
             name="workOrSchool"
             type="text"
             autoComplete="off"
             onChange={handleChange}
             value={studentForm.workOrSchool}
+            className="border-2 border-orlando-slate focus:border-orlando-orange focus:outline-none"
           />
         </FormElement>
 
@@ -166,6 +173,7 @@ export default function StudentForm() {
             required
             onChange={handleChange}
             value={studentForm.email}
+            className="border-2 border-orlando-slate focus:border-orlando-orange focus:outline-none"
           />
         </FormElement>
 
@@ -176,6 +184,7 @@ export default function StudentForm() {
             autoComplete="off"
             onChange={handleChange}
             value={studentForm.birthDate}
+            className="border-2 border-orlando-slate focus:border-orlando-orange focus:outline-none"
           />
         </FormElement>
 
@@ -186,10 +195,22 @@ export default function StudentForm() {
             autoComplete="off"
             onChange={handleChange}
             value={studentForm.birthPlace}
+            className="border-2 border-orlando-slate focus:border-orlando-orange focus:outline-none"
           />
         </FormElement>
 
-        {/*TODO Veli kısmı ayrıca açılacak */}
+        <FormElement labelName="Öğrenci Özet Notu:">
+          <input
+            name="studentNotes"
+            type="text"
+            autoComplete="off"
+            onChange={handleChange}
+            value={studentForm.studentNotes}
+            className="border-2 border-orlando-slate focus:border-orlando-orange focus:outline-none"
+          />
+        </FormElement>
+
+        <hr className="my-5" />
 
         <FormElement labelName="Veli Ad Soyadı:">
           <input
@@ -198,6 +219,7 @@ export default function StudentForm() {
             autoComplete="off"
             onChange={handleChange}
             value={studentForm.parentName}
+            className="border-2 border-orlando-slate focus:border-orlando-orange focus:outline-none"
           />
         </FormElement>
 
@@ -208,6 +230,7 @@ export default function StudentForm() {
             autoComplete="off"
             onChange={handleChange}
             value={studentForm.parentTckn}
+            className="border-2 border-orlando-slate focus:border-orlando-orange focus:outline-none"
           />
         </FormElement>
 
@@ -219,6 +242,7 @@ export default function StudentForm() {
             autoComplete="off"
             onChange={handleChange}
             value={studentForm.parentPhone}
+            className="border-2 border-orlando-slate focus:border-orlando-orange focus:outline-none"
           />
         </FormElement>
 
@@ -229,16 +253,7 @@ export default function StudentForm() {
             autoComplete="off"
             onChange={handleChange}
             value={studentForm.parentAddress}
-          />
-        </FormElement>
-
-        <FormElement labelName="Öğrenci Özet Notu:">
-          <input
-            name="studentNotes"
-            type="text"
-            autoComplete="off"
-            onChange={handleChange}
-            value={studentForm.studentNotes}
+            className="border-2 border-orlando-slate focus:border-orlando-orange focus:outline-none"
           />
         </FormElement>
 

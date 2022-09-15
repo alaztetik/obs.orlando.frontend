@@ -14,12 +14,12 @@ export default function Navbar() {
   }, [UserAuthContext?.auth?.role]);
 
   return (
-    <nav>
+    <nav className="font-bold">
       <div className="flex bg-orlando-gray">
         <NavLogo imageSource="logo_orlando_min.png" />
         {isLoggedIn && (
           <>
-            <NavButton disabled link="/students" buttonText="Öğrenci" />
+            <NavButton disabled link="/students" buttonText="&#127891; Öğrenci" />
             {/* <NavButton link="/education" buttonText="Eğitim" />
             <NavButton link="/payments" buttonText="Muhasebe" />
             <NavButton link="/reports" buttonText="Rapor" /> */}

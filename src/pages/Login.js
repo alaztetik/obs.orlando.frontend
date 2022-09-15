@@ -95,10 +95,10 @@ export default function Login() {
               required
             />
           </label>
-          <button className="rounded block text-orlando-white bg-orlando-gray p-3 m-1 hover:bg-orlando-orange">Giriş</button>
+          <button className="rounded block text-orlando-white bg-orlando-gray p-3 m-1 hover:bg-orlando-orange hover:text-orlando-gray">Giriş</button>
         </form>
       ) : (
-        <p className="p-2">Sisteme giriş yaptınız: <span className="font-bold text-orlando-orange">{auth.username}</span></p>
+        <p className="p-2 text-lg"><span className="font-bold">OBS Orlando</span>'ya hoşgeldin: <span className="font-bold text-orlando-orange">{auth.username}</span> !</p>
       )}
     </div>
   );
