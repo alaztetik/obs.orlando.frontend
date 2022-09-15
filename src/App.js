@@ -17,58 +17,54 @@ import Reports from "./pages/reports/Reports";
 import Expenses from "./pages/payments/Expenses";
 import ExpenseForm from "./pages/payments/ExpenseForm";
 import ReceivePayment from "./pages/payments/ReceivePayment";
+import RequireAuth from "./components/auth/RequireAuth";
 
 export default function App() {
   return (
     <div className="App m-0 p-0 w-full">
       <BrowserRouter>
-      
+
         <Navbar />
 
-        <div className="pages m-0 p-0 bg-red-500">
+        <div className="pages m-0 p-0">
           <Routes>
-
             <Route path="/" element={<Login />} />
-
             <Route path="/login" element={<Login />} />
-            
 
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route
+              element={
+                <RequireAuth
+                  allowedRoles={["admin", "founder", "manager", "advisor"]}
+                />
+              }
+            >
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/students" element={<Students />} />
+              <Route path="/students/students" element={<StudentsAll />} />
+              <Route path="/students/student" element={<StudentForm />} />
+              <Route path="/students/prospects" element={<ProspectsAll />} />
+              <Route path="/students/prospect" element={<ProspectForm />} />
 
+              <Route path="/education" element={<Education />} />
+              <Route path="/education/enrollments" element={<Enrollments />} />
+              <Route
+                path="/education/enrollment"
+                element={<EnrollmentForm />}
+              />
+              <Route path="/education/groups" element={<Groups />} />
+              <Route path="/education/group" element={<GroupForm />} />
 
-            <Route path="/students" element={<Students />} />
+              <Route path="/payments" element={<Payments />} />
+              <Route path="/payments/payment" element={<ReceivePayment />} />
+              <Route path="/payments/expenses" element={<Expenses />} />
+              <Route path="/payments/expense" element={<ExpenseForm />} />
 
-            <Route path="/students/students" element={<StudentsAll />} />
-
-            <Route path="/students/student" element={<StudentForm />} />
-
-            <Route path="/students/prospects" element={<ProspectsAll />} />
-
-            <Route path="/students/prospect" element={<ProspectForm />} />
-
-
-            <Route path="/education" element={<Education />} />
-
-            <Route path="/education/enrollments" element={<Enrollments />} />
-
-            <Route path="/education/enrollment" element={<EnrollmentForm />} />
-
-            <Route path="/education/groups" element={<Groups />} />
-
-            <Route path="/education/group" element={<GroupForm />} />
-            
-
-            <Route path="/payments" element={<Payments />} />
-
-            <Route path="/payments/payment" element={<ReceivePayment />} />
-
-            <Route path="/payments/expenses" element={<Expenses />} />
-
-            <Route path='/payments/expense' element={<ExpenseForm />} />
-
-
-            <Route path='/reports' element={<Reports />} />
-
+              <Route
+                element={<RequireAuth allowedRoles={["admin", "founder"]} />}
+              >
+                <Route path="/reports" element={<Reports />} />
+              </Route>
+            </Route>
           </Routes>
         </div>
       </BrowserRouter>
