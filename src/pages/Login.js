@@ -32,7 +32,7 @@ export default function Login() {
 
   async function authenticateUser(formData) {
     try {
-      const response = await fetch('http://localhost:4000/api/v0/login', {
+      const response = await fetch('https://pear-shy-betta.cyclic.app/api/v0/login', {
         method: 'POST',
         body: JSON.stringify(formData),
         headers: {
