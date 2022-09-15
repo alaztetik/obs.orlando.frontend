@@ -2,10 +2,13 @@ import FormElement from "../../components/form/FormElement";
 import React, { useContext } from "react";
 import AuthContext from "../../context/AuthProvider";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function StudentForm() {
 
   const UserAuthContext = useContext(AuthContext);
+
+  const navigate = useNavigate();
 
   const [studentForm, setStudentForm] = useState({
     firstName: "",
@@ -60,27 +63,11 @@ export default function StudentForm() {
 
       console.log(result);
       setErrorState(false);
+      navigate('/students/students');
     } catch (err) {
       console.log("Error:", err);
       setErrorState(true);
-      setStudentForm({
-        firstName: "",
-        lastName: "",
-        tckn: "",
-        phone: "",
-        address: "",
-        secondaryContact: "",
-        workOrSchool: "",
-        email: "",
-        birthDate: "",
-        birthPlace: "",
-        parentName: "",
-        parentTckn: "",
-        parentPhone: "",
-        parentAddress: "",
-        studentNotes: "",
-        creator: UserAuthContext.auth.username,
-      });
+      
     }
   };
 
