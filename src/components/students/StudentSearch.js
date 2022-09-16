@@ -5,7 +5,7 @@ export default function StudentSearch(props) {
   }
 
   return (
-    <div className="student-search m-2">
+    <div className="student-search m-2 px-1">
       <input
         autoFocus
         className="border border-orlando-slate shadow-sm shadow-orlando-slate focus:ring-3 focus:border-orlando-orange"
