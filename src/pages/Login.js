@@ -72,24 +72,24 @@ export default function Login() {
       {auth.role === "none" 
       ? (
         <form className="flex w-2/6" onSubmit={handleSubmit}>
-          <label className="block m-1 p-1 text-orlando-gray">
+          <label className="block m-1 p-1 text-orlando-gray font-bold">
             Kullanıcı Adı:
             <input
               type="text"
               name="username"
-              className="border-2 border-orlando-slate focus:border-orlando-orange focus:outline-none"
+              className="border-2 border-orlando-slate focus:border-orlando-orange focus:outline-none p-1 font-normal"
               value={formData.username}
               onChange={handleUsernameChange}
               required
               autoFocus
             />
           </label>
-          <label className="block m-1 p-1 text-orlando-gray">
+          <label className="block m-1 p-1 text-orlando-gray font-bold">
             Şifre:
             <input
               type="password"
               name="password"
-              className="border-2 border-orlando-slate focus:border-orlando-orange focus: outline-none"
+              className="border-2 border-orlando-slate focus:border-orlando-orange focus: outline-none p-1 font-normal"
               value={formData.password}
               onChange={handlePasswordChange}
               required
