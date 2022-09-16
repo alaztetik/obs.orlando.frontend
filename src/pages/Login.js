@@ -12,6 +12,8 @@ export default function Login() {
 
   const [errorOnLogin, setErrorOnLogin] = useState(false);
 
+  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(false);
+
   function handleUsernameChange(e) {
     setFormData((prev) => {
       return {
@@ -61,7 +63,8 @@ export default function Login() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    authenticateUser(formData)
+    authenticateUser(formData);
+    setIsSubmitButtonDisabled(true);
   }
 
   return (
@@ -95,7 +98,8 @@ export default function Login() {
               required
             />
           </label>
-          <button className="rounded block text-orlando-white bg-orlando-gray p-3 m-1 hover:bg-orlando-orange hover:text-orlando-gray">Giriş</button>
+          <button disabled={isSubmitButtonDisabled} className="rounded block text-orlando-white bg-orlando-gray p-3 m-1 hover:bg-orlando-orange hover:text-orlando-gray">Giriş</button>
+          
         </form>
       ) : (
         <p className="p-2 text-lg"><span className="font-bold">OBS Orlando</span>'ya hoşgeldin: <span className="font-bold text-orlando-orange">{auth.username}</span> !</p>

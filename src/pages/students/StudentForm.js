@@ -42,8 +42,11 @@ export default function StudentForm() {
     });
   };
 
+  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitButtonDisabled(true);
 
     try {
       const response = await fetch("https://pear-shy-betta.cyclic.app/api/v0/students", {
@@ -257,7 +260,7 @@ export default function StudentForm() {
           />
         </FormElement>
 
-        <button className="p-1 m-1 mt-6 border rounded bg-orlando-gray hover:bg-orlando-orange text-orlando-white hover:text-orlando-gray">
+        <button disabled={isSubmitButtonDisabled} className="p-1 m-1 mt-6 border rounded bg-orlando-gray hover:bg-orlando-orange text-orlando-white hover:text-orlando-gray disabled:bg-gray-600 disabled:text-black">
           Ekle
         </button>
       </form>
