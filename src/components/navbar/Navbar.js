@@ -20,9 +20,9 @@ export default function Navbar() {
         {isLoggedIn && (
           <>
             <NavButton disabled link="/students" buttonText="&#127891; Öğrenci" />
-            {/* <NavButton link="/education" buttonText="Eğitim" />
-            <NavButton link="/payments" buttonText="Muhasebe" />
-            <NavButton link="/reports" buttonText="Rapor" /> */}
+            <NavButton link="/payments" buttonText="&#9878; Muhasebe" />
+            {/* <NavButton link="/education" buttonText="Eğitim" /> */}
+            {/* <NavButton link="/reports" buttonText="Rapor" /> */}
           </>
         )}
       </div>

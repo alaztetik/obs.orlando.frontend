@@ -51,6 +51,12 @@ export default function Login() {
       }
 
       const result = await response.json(); // response format: {username, role}
+
+      if (result.username === 'none') {
+        setAuth(result);
+        return setErrorOnLogin(true);
+      }
+      
       setAuth(result);
       setErrorOnLogin(false);
 
@@ -98,7 +104,7 @@ export default function Login() {
               required
             />
           </label>
-          <button disabled={isSubmitButtonDisabled} className="rounded block text-orlando-white bg-orlando-gray p-3 m-1 hover:bg-orlando-orange hover:text-orlando-gray">Giriş</button>
+          <button disabled={isSubmitButtonDisabled} className="rounded block text-orlando-white bg-orlando-gray p-3 m-1 hover:bg-orlando-orange hover:text-orlando-gray disabled:bg-gray-600 disabled:text-black">Giriş</button>
           
         </form>
       ) : (
