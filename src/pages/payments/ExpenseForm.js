@@ -1,8 +1,14 @@
 import { useContext, useState } from "react";
 import FormElement from "../../components/form/FormElement";
 import AuthContext from "../../context/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 export default function ExpenseForm() {
+
+    const navigate = useNavigate();
+
+    const [buttonDisabled, setButtonDisabled] = useState(false)
+
     const UserAuthContext = useContext(AuthContext);
 
     const [expenseForm, setExpenseForm] = useState({
@@ -24,7 +30,7 @@ export default function ExpenseForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+        setButtonDisabled(true);
         try {
             const response = await fetch('https://pear-shy-betta.cyclic.app/api/v0/expenses', {
                 method: 'POST',
@@ -41,11 +47,10 @@ export default function ExpenseForm() {
 
             const result = await response.json();
 
-            console.log(result);
-
         } catch (error) {
-            console.log("Error: ", error);
+            setButtonDisabled(false);
         }
+        navigate('/payments/expenses');
     }
 
     return (
@@ -119,6 +124,7 @@ export default function ExpenseForm() {
                 </FormElement>
 
                 <button
+                    disabled={buttonDisabled ? true : false}
                     className="bg-gray-300 p-1 m-1 border rounded hover:bg-gray-500"
                 >
                     Ekle
