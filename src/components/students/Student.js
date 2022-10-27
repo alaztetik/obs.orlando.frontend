@@ -1,3 +1,4 @@
+import StudentEditModal from "../modal/StudentEditModal";
 
 export default function Student(props) {
 
@@ -9,7 +10,9 @@ export default function Student(props) {
             <td className="border px-2">{props.phone}</td>
             <td className="border px-2">{props.email}</td>
             <td className="border px-2">{props.note}</td>
-            <td className="border px-2 bg-slate-100 hover:bg-slate-200 text-center cursor-pointer text-lg"><span className="hover:text-green-600">&#8635;</span> <span className="hover:text-red-600">&#10007;</span></td>
+            <td className="border px-2 bg-slate-100 hover:bg-slate-200 text-center cursor-pointer text-lg">
+                <StudentEditModal student={props.student} />
+            </td>
         </tr>
     );
 }

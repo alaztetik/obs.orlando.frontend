@@ -4,7 +4,7 @@ import AuthContext from "../../context/AuthProvider";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function StudentForm() {
+export default function StudentForm(props) {
 
   const UserAuthContext = useContext(AuthContext);
 
