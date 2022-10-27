@@ -9,11 +9,20 @@ export default function Payments() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  function isAllowed() {
+    if (["admin", "founder", "manager"].includes(UserAuthContext.auth.role)) {
+      return true;
+    }
+    return false;
+  }
+
   useEffect( () => {
     if (UserAuthContext?.auth.role !== 'none') {
       setIsLoggedIn(true);
     }
   }, [UserAuthContext]);
+
+
 
   return (
     <>
@@ -22,7 +31,7 @@ export default function Payments() {
         <Button buttonText="Ödeme Al" link="/payments/payment" />
       </MainSection> */}
       <MainSection>
-      <Button buttonText="Giderler" link="/payments/expenses" />
+        {isAllowed() && <Button buttonText="Giderler" link="/payments/expenses" />}
       <Button buttonText="Gider Ekle" link="/payments/expense" />
       </MainSection>
     </>

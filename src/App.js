@@ -56,8 +56,14 @@ export default function App() {
 
               <Route path="/payments" element={<Payments />} />
               <Route path="/payments/payment" element={<ReceivePayment />} />
-              <Route path="/payments/expenses" element={<Expenses />} />
+              
               <Route path="/payments/expense" element={<ExpenseForm />} />
+
+              <Route
+                element={<RequireAuth allowedRoles={["admin", "founder", "manager"]}/>}
+              >
+                <Route path="/payments/expenses" element={<Expenses />} />
+              </Route>
 
               <Route
                 element={<RequireAuth allowedRoles={["admin", "founder"]} />}
