@@ -19,9 +19,15 @@ export default function Navbar() {
         <NavLogo imageSource="logo_orlando_min.png" />
         {isLoggedIn && (
           <>
-            <NavButton disabled link="/students" buttonText="&#127891; Öğrenci" />
-            <NavButton link="/payments" buttonText="&#9878; Muhasebe" />
-            {/* <NavButton link="/education" buttonText="Eğitim" /> */}
+            <NavButton disabled link="/students" buttonText=" Öğrenci">
+              <img className="inline-block" src="https://img.icons8.com/ios-glyphs/22/FAB005/student-center.png" alt="student"/>
+            </NavButton>
+            <NavButton link="/education" buttonText=" Eğitim">
+              <img className="inline-block" src="https://img.icons8.com/ios-filled/22/FAB005/school.png" alt="money"/>
+            </NavButton>
+            <NavButton link="/payments" buttonText=" Muhasebe">
+              <img className="inline-block" src="https://img.icons8.com/ios/22/FAB005/exchange-lira.png" alt="money"/>
+            </NavButton>
             {/* <NavButton link="/reports" buttonText="Rapor" /> */}
           </>
         )}

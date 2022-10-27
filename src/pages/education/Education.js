@@ -4,7 +4,7 @@ import MainSection from "../../components/section/MainSection";
 export default function Education() {
   return (
     <>
-      <MainSection>
+{/*       <MainSection>
         <Button buttonText="Ders Kayıtları" link="/education/enrollments" />
         <Button buttonText="Ders Kaydı Oluştur" link="/education/enrollment" />
       </MainSection>
@@ -21,7 +21,7 @@ export default function Education() {
       <MainSection>
       <Button buttonText="Öğretmenler" link="/education" />
       <Button buttonText="Dersler" link="/education" />
-      </MainSection>
+      </MainSection> */}
     </>
   );
 }
