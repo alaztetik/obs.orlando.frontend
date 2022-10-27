@@ -1,4 +1,4 @@
-
+import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import Expense from '../../components/expense/Expense';
 import ExpenseWrapper from '../../components/expense/ExpenseWrapper';
@@ -87,6 +87,13 @@ export default function Expenses() {
     }
 
 
+    function formatDate(stringDate) {
+        moment.locale();
+        const date = moment(stringDate).format('D MMM YY');
+        return date;
+    }
+
+
     return (
         <>
             <p className='m-2'>Kalem Sayısı: <span className='font-bold'>{expenses.length}</span></p>
@@ -99,7 +106,7 @@ export default function Expenses() {
                             expenseType={returnFormattedExpenseName(expense.expenseType)}
                             description={expense.description}
                             personPayed={whoPaid(expense.personPayed)}
-                            payDate={expense.payDate}
+                            payDate={formatDate(expense.payDate)}
                             payAmounth={expense.payAmounth}
                         />
                     );

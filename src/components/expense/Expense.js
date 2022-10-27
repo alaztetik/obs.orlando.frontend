@@ -8,7 +8,7 @@ export default function Expense(props) {
             <td className="border px-2 font-bold">{props.expenseType}</td>
             <td className="border px-2">{props.description}</td>
             <td className="border px-2">{props.personPayed}</td>
-            <td className="border px-2">{props.payDate.slice(0, 10)}</td>
+            <td className="border px-2">{props.payDate}</td>
             <td className="border px-2 font-bold">{props.payAmounth}</td>
         </tr>
     );
