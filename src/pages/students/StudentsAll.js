@@ -13,8 +13,6 @@ export default function StudentsAll() {
             .then((data) => setStudents(data));
     }, []);
 
-    let numberOfStudents = students.length;
-
     const [query, setQuery] = useState("");
 
     function getSearchInput(input) {
@@ -24,6 +22,8 @@ export default function StudentsAll() {
     const searchedData = students.filter((student) =>
         Object.values(student).join().toLowerCase().includes(query)
     );
+
+    let numberOfStudents = searchedData.length;
 
     return (
         <div className="studens-all">
