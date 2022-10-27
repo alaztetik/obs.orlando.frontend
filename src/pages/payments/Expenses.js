@@ -56,17 +56,49 @@ export default function Expenses() {
         }
     }
 
+    
+    function whoPaid(username) {
+        switch (username) {
+            case "ebruerkan":
+                return "Ebru Erkan";
+            case "emretas":
+                return "Emre Taş";
+            case "dogukani":
+                return "Doğukan İzlimek";
+            case "meltemmeraki":
+                return "Meltem Meraki";
+            case "alaztetik":
+                return "admin";
+            default:
+                break;
+        }
+    }
+
+
+    function totalExpense() {
+
+        let total = 0;
+
+        expenses.map(expense => {
+            total += expense.payAmounth;
+        });
+
+        return total;
+    }
+
+
     return (
         <>
-            <p className='m-2'>Toplam Gider: <span className='font-bold'>{expenses.length}</span></p>
+            <p className='m-2'>Kalem Sayısı: <span className='font-bold'>{expenses.length}</span></p>
+            <p className='m-2'>Toplam Gider: <span className='font-bold'>{totalExpense()}</span> ₺</p>
             <ExpenseWrapper>
                 {expenses.map( expense => {
                     return (
                         <Expense
-                            key={expense.description + expense.personPayed + expense.payDate}
+                            key={expense._id}
                             expenseType={returnFormattedExpenseName(expense.expenseType)}
                             description={expense.description}
-                            personPayed={expense.personPayed}
+                            personPayed={whoPaid(expense.personPayed)}
                             payDate={expense.payDate}
                             payAmounth={expense.payAmounth}
                         />
