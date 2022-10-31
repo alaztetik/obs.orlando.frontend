@@ -32,6 +32,7 @@ export default function ExpenseForm() {
         e.preventDefault();
         setButtonDisabled(true);
         try {
+            // const response = await fetch('http://localhost:4000/api/v0/expenses', {
             const response = await fetch('https://pear-shy-betta.cyclic.app/api/v0/expenses', {
                 method: 'POST',
                 body: JSON.stringify(expenseForm),
@@ -87,6 +88,10 @@ export default function ExpenseForm() {
                             Personel - SGK
                         </option>
                         <option value="personelBonus">Personel - Prim</option>
+                        <option value="bookTrainingMaterial" >Kitap / Eğitim Materiyali</option>
+                        <option value="payback">Kayıt İptali / İade</option>
+                        <option value="event">Organizasyon / Etkinlik</option>
+                        <option value="other">Diğer</option>
                     </select>
                 </FormElement>
 

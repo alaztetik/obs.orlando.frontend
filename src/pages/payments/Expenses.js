@@ -8,6 +8,7 @@ export default function Expenses() {
     const [expenses, setExpenses] = useState([]);
 
     useEffect( () => {
+        //fetch('http://localhost:4000/api/v0/expenses')
         fetch('https://pear-shy-betta.cyclic.app/api/v0/expenses')
         .then(data => data.json())
         .then(data => setExpenses(data));
@@ -51,6 +52,14 @@ export default function Expenses() {
                 return "Personel - SGK";
             case "personelBonus":
                 return "Personel - Prim";
+            case "bookTrainingMaterial":
+                return "Kitap / Eğitim Materiyali";
+            case "payback":
+                return "Kayıt İptali / İade";
+            case "event":
+                return "Organizasyon / Etkinlik";
+            case "other":
+                return "Diğer";
             default:
                 return "";
         }
