@@ -8,13 +8,13 @@ export default function Expenses() {
     const [expenses, setExpenses] = useState([]);
 
     useEffect( () => {
-        //fetch('http://localhost:4000/api/v0/expenses')
+        // fetch('http://localhost:4000/api/v0/expenses')
         fetch('https://pear-shy-betta.cyclic.app/api/v0/expenses')
         .then(data => data.json())
         .then(data => setExpenses(data));
     }, []);
 
-    function returnFormattedExpenseName(expenseType) {
+    function formatExpenseName(expenseType) {
         switch (expenseType) {
             case "startup":
                 return "Kuruluş";
@@ -66,7 +66,7 @@ export default function Expenses() {
     }
 
     
-    function whoPaid(username) {
+    function formatWhoPaid(username) {
         switch (username) {
             case "ebruerkan":
                 return "Ebru Erkan";
@@ -88,7 +88,7 @@ export default function Expenses() {
 
         let total = 0;
 
-        expenses.map(expense => {
+        expenses.forEach(expense => {
             total += expense.payAmounth;
         });
 
@@ -103,6 +103,26 @@ export default function Expenses() {
     }
 
 
+    function formatPaymentMethod(method) {
+        switch (method) {
+            case "creditCardCorporate":
+                return "Kredi Kartı (Kurumsal)";
+            case "creditCardPersonal":
+                return "Kredi Kartı (Kişisel)";
+            case "cash":
+                return "Nakit";
+            case "debitCardCorporate":
+                return "Banka Kartı (Kurumsal)";
+            case "debitCardPersonal":
+                return "Banka Kartı (Kişisel)";
+            case "founder":
+                return "Kurucu";
+            default:
+                return "Diğer";
+        }
+    }
+
+
     return (
         <>
             <p className='m-2'>Kalem Sayısı: <span className='font-bold'>{expenses.length}</span></p>
@@ -112,9 +132,10 @@ export default function Expenses() {
                     return (
                         <Expense
                             key={expense._id}
-                            expenseType={returnFormattedExpenseName(expense.expenseType)}
+                            expenseType={formatExpenseName(expense.expenseType)}
                             description={expense.description}
-                            personPayed={whoPaid(expense.personPayed)}
+                            personPayed={formatWhoPaid(expense.personPayed)}
+                            paymentMethod={formatPaymentMethod(expense.paymentMethod)}
                             payDate={formatDate(expense.payDate)}
                             payAmounth={expense.payAmounth}
                         />

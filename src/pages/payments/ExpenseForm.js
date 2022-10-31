@@ -16,6 +16,7 @@ export default function ExpenseForm() {
         description: "",
         personPayed: UserAuthContext.auth.username,
         payDate: "",
+        paymentMethod: "",
         payAmounth: 0,
     });
 
@@ -45,8 +46,6 @@ export default function ExpenseForm() {
             if (!response.ok) {
                 throw new Error(`Error! status: ${response.status}`);
             }
-
-            const result = await response.json();
 
         } catch (error) {
             setButtonDisabled(false);
@@ -114,6 +113,22 @@ export default function ExpenseForm() {
                         required
                         onChange={handleChange}
                     />
+                </FormElement>
+
+                <FormElement labelName="Ödeme Metodu:">
+                    <select
+                        value={expenseForm.paymentMethod}
+                        name="paymentMethod"
+                        required
+                        onChange={handleChange} 
+                    >
+                        <option value="creditCardCorporate" >Kredi Kartı (Kurumsal)</option>
+                        <option value="creditCardPersonal">Kredi Kartı (Kişisel)</option>
+                        <option value="cash">Nakit</option>
+                        <option value="debitCardCorporate">Banka Kartı (Kurumsal)</option>
+                        <option value="debitCardPersonal">Banka Kartı (Kişisel)</option>
+                        <option value="founder">Kurucu</option>
+                    </select>
                 </FormElement>
 
                 <FormElement labelName="Tutar ₺: ">

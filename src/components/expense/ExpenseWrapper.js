@@ -9,6 +9,7 @@ export default function ExpenseWrapper(props) {
                     <th className="border px-1 py-1">Gider Tipi</th>
                     <th className="border px-1 py-1">Açıklama</th>
                     <th className="border px-1 py-1">Ödeyen</th>
+                    <th className="border px-1 py-1">Ödeme Metodu</th>
                     <th className="border px-1 py-1">Ödeme Tarihi</th>
                     <th className="border px-1 py-1">Tutar (₺)</th>
                 </tr>
