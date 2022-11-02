@@ -131,6 +131,7 @@ export default function Expenses() {
                 {expenses.map( expense => {
                     return (
                         <Expense
+                            expense={expense}
                             key={expense._id}
                             expenseType={formatExpenseName(expense.expenseType)}
                             description={expense.description}
