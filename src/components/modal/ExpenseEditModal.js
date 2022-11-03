@@ -161,7 +161,7 @@ export default function ExpenseEditModal({ expense }) {
                             name="payAmounth"
                             min="0"
                             step="0.01"
-                            value={expense.payAmounth}
+                            value={expenseInfo.payAmounth}
                             placeholder="örn. 250 ₺"
                             required
                             onChange={handleChange}
