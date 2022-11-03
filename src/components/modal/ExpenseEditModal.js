@@ -22,6 +22,10 @@ export default function ExpenseEditModal({ expense }) {
         });
     }
 
+    const handleDelete = (e) => {
+        console.log(e);
+    }
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -168,9 +172,10 @@ export default function ExpenseEditModal({ expense }) {
                         />
                     </FormElement>
                     <br />
-                    <button className="p-1 m-1 mt-6 border rounded bg-orlando-gray hover:bg-orlando-orange text-orlando-white hover:text-orlando-gray disabled:bg-gray-600 disabled:text-black">
+                    <button type="submit" className="p-1 m-1 mt-6 border rounded bg-orlando-gray hover:bg-orlando-orange text-orlando-white hover:text-orlando-gray disabled:bg-gray-600 disabled:text-black">
                         Tamam
                     </button>
+                    <button type="button" onClick={handleDelete} className="p-1 m-1 mt-6 border rounded bg-red-600 hover:bg-orlando-orange text-orlando-white hover:text-orlando-gray disabled:bg-gray-600 disabled:text-black">Sil</button>
                 </form>
             </Modal>
 

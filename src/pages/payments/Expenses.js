@@ -1,7 +1,7 @@
-import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import Expense from '../../components/expense/Expense';
 import ExpenseWrapper from '../../components/expense/ExpenseWrapper';
+import { formatUsername, formatExpenseName, formatPaymentMethod, formatDate } from '../../utils/formats';
 
 export default function Expenses() {
 
@@ -13,75 +13,6 @@ export default function Expenses() {
         .then(data => data.json())
         .then(data => setExpenses(data));
     }, []);
-
-    function formatExpenseName(expenseType) {
-        switch (expenseType) {
-            case "startup":
-                return "Kuruluş";
-            case "electricity":
-                return "Elektrik Faturası";
-            case "water":
-                return "Su Faturası";
-            case "internet":
-                return "Internet Faturası";
-            case "phone":
-                return "Telefon Faturası";
-            case "naturalGas":
-                return "Doğal Gaz";
-            case "assests":
-                return "Demirbaş";
-            case "stationery":
-                return "Kırtasiye";
-            case "rent":
-                return "Kira";
-            case "restoration":
-                return "Tadilat";
-            case "transportation":
-                return "Ulaşım";
-            case "taxes":
-                return "Vergi";
-            case "shopping":
-                return "Market";
-            case "food":
-                return "Yemek";
-            case "finance":
-                return "Finans";
-            case "personelSalary":
-                return "Personel - Maaş";
-            case "personelInsurance":
-                return "Personel - SGK";
-            case "personelBonus":
-                return "Personel - Prim";
-            case "bookTrainingMaterial":
-                return "Kitap / Eğitim Materiyali";
-            case "payback":
-                return "Kayıt İptali / İade";
-            case "event":
-                return "Organizasyon / Etkinlik";
-            case "other":
-                return "Diğer";
-            default:
-                return "";
-        }
-    }
-
-    
-    function formatWhoPaid(username) {
-        switch (username) {
-            case "ebruerkan":
-                return "Ebru Erkan";
-            case "emretas":
-                return "Emre Taş";
-            case "dogukani":
-                return "Doğukan İzlimek";
-            case "meltemmeraki":
-                return "Meltem Meraki";
-            case "alaztetik":
-                return "admin";
-            default:
-                break;
-        }
-    }
 
 
     function totalExpense() {
@@ -96,31 +27,7 @@ export default function Expenses() {
     }
 
 
-    function formatDate(stringDate) {
-        moment.locale();
-        const date = moment(stringDate).format('D MMM YY');
-        return date;
-    }
-
-
-    function formatPaymentMethod(method) {
-        switch (method) {
-            case "creditCardCorporate":
-                return "Kredi Kartı (Kurumsal)";
-            case "creditCardPersonal":
-                return "Kredi Kartı (Kişisel)";
-            case "cash":
-                return "Nakit";
-            case "debitCardCorporate":
-                return "Banka Kartı (Kurumsal)";
-            case "debitCardPersonal":
-                return "Banka Kartı (Kişisel)";
-            case "founder":
-                return "Kurucu";
-            default:
-                return "Diğer";
-        }
-    }
+    let numberOfExpenses = expenses.length;
 
 
     return (
@@ -131,11 +38,12 @@ export default function Expenses() {
                 {expenses.map( expense => {
                     return (
                         <Expense
+                            no={numberOfExpenses--}
                             expense={expense}
                             key={expense._id}
                             expenseType={formatExpenseName(expense.expenseType)}
                             description={expense.description}
-                            personPayed={formatWhoPaid(expense.personPayed)}
+                            personPayed={formatUsername(expense.personPayed)}
                             paymentMethod={formatPaymentMethod(expense.paymentMethod)}
                             payDate={formatDate(expense.payDate)}
                             payAmounth={expense.payAmounth}

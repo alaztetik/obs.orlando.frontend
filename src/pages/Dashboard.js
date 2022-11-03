@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../context/AuthProvider";
+import { formatUsername } from "../utils/formats";
 
 export default function Dashboard() {
   const UserAuthContext = useContext(AuthContext);
@@ -17,7 +18,7 @@ export default function Dashboard() {
           <p className="text-xl">
             Hoşgeldin{" "}
             <span className="font-bold text-orlando-orange">
-              {UserAuthContext.auth.username}
+              {formatUsername(UserAuthContext.auth.username)}
             </span> !
           </p>
           <p className="mt-6 text-lg"><span className="font-bold text-orlando-orange">Orlando Language Academy</span> - <span className="font-bold text-orlando-slate">Öğrenci Bilgi Sistemi (ÖBS)</span> uygulaması ile aşağıdaki işlemleri gerçekleştirebileceksin:</p>

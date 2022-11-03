@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import AuthContext from "../context/AuthProvider";
+import { formatUsername } from "../utils/formats";
 
 export default function Login() {
 
@@ -108,7 +109,7 @@ export default function Login() {
           
         </form>
       ) : (
-        <p className="p-2 text-lg"><span className="font-bold">OBS Orlando</span>'ya hoşgeldin: <span className="font-bold text-orlando-orange">{auth.username}</span> !</p>
+        <p className="p-2 text-lg"><span className="font-bold">OBS Orlando</span>'ya hoşgeldin: <span className="font-bold text-orlando-orange">{formatUsername(auth.username)}</span> !</p>
       )}
     </div>
   );
