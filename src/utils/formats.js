@@ -60,6 +60,8 @@ export function formatExpenseName(expenseType) {
             return "Kitap / Eğitim Materiyali";
         case "payback":
             return "Kayıt İptali / İade";
+        case "promo":
+            return "Reklam / Tanıtım";
         case "event":
             return "Organizasyon / Etkinlik";
         case "other":

@@ -89,6 +89,7 @@ export default function ExpenseForm() {
                         <option value="personelBonus">Personel - Prim</option>
                         <option value="bookTrainingMaterial" >Kitap / Eğitim Materiyali</option>
                         <option value="payback">Kayıt İptali / İade</option>
+                        <option value="promo">Reklam / Tanıtım</option>
                         <option value="event">Organizasyon / Etkinlik</option>
                         <option value="other">Diğer</option>
                     </select>
