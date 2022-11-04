@@ -22,8 +22,27 @@ export default function ExpenseEditModal({ expense }) {
         });
     }
 
-    const handleDelete = (e) => {
-        console.log(e);
+    const handleDelete = async (e) => {
+        try {
+            const response = await fetch('https://pear-shy-betta.cyclic.app/api/v0/expenses', {
+            // const response = await fetch('http://localhost:4000/api/v0/expenses', {
+                method: 'DELETE',
+                body: JSON.stringify(expenseInfo),
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json'
+                }
+            })
+
+            if (!response.ok) {
+                throw new Error('Error: ' + response.status);
+            }
+
+            navigate('/payments');
+
+        } catch(error) {
+            console.log('Error is ' + error);
+        }
     }
 
     const handleSubmit = async (event) => {
