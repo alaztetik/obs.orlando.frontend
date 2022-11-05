@@ -126,6 +126,7 @@ export default function ExpenseEditModal({ expense }) {
                                 Kitap / Eğitim Materiyali
                             </option>
                             <option value="payback">Kayıt İptali / İade</option>
+                            <option value="promo">Reklam / Tanıtım</option>
                             <option value="event">
                                 Organizasyon / Etkinlik
                             </option>
