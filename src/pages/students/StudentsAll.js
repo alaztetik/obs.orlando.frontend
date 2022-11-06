@@ -7,8 +7,7 @@ export default function StudentsAll() {
     const [students, setStudents] = useState([]);
 
     useEffect(() => {
-        //fetch("http://localhost:4000/api/v0/students")
-          fetch('https://pear-shy-betta.cyclic.app/api/v0/students')
+          fetch(`${process.env.REACT_APP_PROD_BACKEND_URL}/api/v0/students`)
             .then((data) => data.json())
             .then((data) => setStudents(data));
     }, []);

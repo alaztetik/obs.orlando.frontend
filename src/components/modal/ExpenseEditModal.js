@@ -24,8 +24,7 @@ export default function ExpenseEditModal({ expense }) {
 
     const handleDelete = async (e) => {
         try {
-            const response = await fetch('https://pear-shy-betta.cyclic.app/api/v0/expenses', {
-            // const response = await fetch('http://localhost:4000/api/v0/expenses', {
+            const response = await fetch(`${process.env.REACT_APP_PROD_BACKEND_URL}/api/v0/expenses`, {
                 method: 'DELETE',
                 body: JSON.stringify(expenseInfo),
                 headers: {
@@ -49,8 +48,7 @@ export default function ExpenseEditModal({ expense }) {
         event.preventDefault();
 
         try {
-            // const response = await fetch('http://localhost:4000/api/v0/expenses', {
-            const response = await fetch('https://pear-shy-betta.cyclic.app/api/v0/expenses', {
+            const response = await fetch(`${process.env.REACT_APP_PROD_BACKEND_URL}/api/v0/expenses`, {
                 method: 'PATCH',
                 body: JSON.stringify(expenseInfo),
                 headers: {

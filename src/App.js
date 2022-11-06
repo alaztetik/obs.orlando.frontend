@@ -20,6 +20,7 @@ import ReceivePayment from "./pages/payments/ReceivePayment";
 import RequireAuth from "./components/auth/RequireAuth";
 
 export default function App() {
+  
   return (
     <div className="App m-0 p-0 w-full">
       <BrowserRouter>

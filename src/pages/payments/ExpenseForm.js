@@ -33,8 +33,7 @@ export default function ExpenseForm() {
         e.preventDefault();
         setButtonDisabled(true);
         try {
-            // const response = await fetch('http://localhost:4000/api/v0/expenses', {
-            const response = await fetch('https://pear-shy-betta.cyclic.app/api/v0/expenses', {
+            const response = await fetch(`${process.env.REACT_APP_PROD_BACKEND_URL}/api/v0/expenses`, {
                 method: 'POST',
                 body: JSON.stringify(expenseForm),
                 headers: {

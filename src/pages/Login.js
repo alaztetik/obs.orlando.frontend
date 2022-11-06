@@ -35,7 +35,7 @@ export default function Login() {
 
   async function authenticateUser(formData) {
     try {
-      const response = await fetch('https://pear-shy-betta.cyclic.app/api/v0/login', {
+      const response = await fetch(`${process.env.REACT_APP_PROD_BACKEND_URL}/api/v0/login`, {
         method: 'POST',
         body: JSON.stringify(formData),
         headers: {

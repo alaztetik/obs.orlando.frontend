@@ -8,8 +8,7 @@ export default function Expenses() {
     const [expenses, setExpenses] = useState([]);
 
     useEffect( () => {
-        // fetch('http://localhost:4000/api/v0/expenses')
-        fetch('https://pear-shy-betta.cyclic.app/api/v0/expenses')
+        fetch(`${process.env.REACT_APP_PROD_BACKEND_URL}/api/v0/expenses`)
         .then(data => data.json())
         .then(data => setExpenses(data));
     }, []);
