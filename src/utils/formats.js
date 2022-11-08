@@ -32,7 +32,7 @@ export function formatExpenseName(expenseType) {
             return "Telefon Faturası";
         case "naturalGas":
             return "Doğal Gaz";
-        case "assests":
+        case "assets":
             return "Demirbaş";
         case "stationery":
             return "Kırtasiye";
