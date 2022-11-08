@@ -72,7 +72,7 @@ export default function ExpenseForm() {
                         <option value="internet">Internet Faturası</option>
                         <option value="phone">Telefon Faturası</option>
                         <option value="naturalGas">Doğalgaz Faturası</option>
-                        <option value="assests">Demirbaş</option>
+                        <option value="assets">Demirbaş</option>
                         <option value="stationery">Kırtasiye</option>
                         <option value="rent">Kira</option>
                         <option value="restoration">Tadilat</option>
