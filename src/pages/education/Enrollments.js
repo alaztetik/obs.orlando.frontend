@@ -10,7 +10,7 @@ export default function Enrollments() {
 
     const students = React.useContext(StudentContext).students;
 
-    const { enrollments } = React.useContext(EnrollmentContext);
+    const enrollments = React.useContext(EnrollmentContext).enrollments;
 
     const [query, setQuery] = React.useState("");
 
