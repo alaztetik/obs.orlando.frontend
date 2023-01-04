@@ -10,7 +10,7 @@ export const StudentProvider = ({children}) => {
         fetch(`${process.env.REACT_APP_PROD_BACKEND_URL}/api/v0/students`)
             .then((data) => data.json())
             .then((data) => setStudents(data));
-    }, []);
+    });
 
     return (
         <StudentContext.Provider value={{students, setStudents}}>

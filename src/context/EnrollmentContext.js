@@ -10,7 +10,7 @@ export const EnrollmentProvider = ({children}) => {
       fetch(`${process.env.REACT_APP_PROD_BACKEND_URL}/api/v0/enrollments`)
           .then( (data) => data.json() )
           .then( (data) => setEnrollments(data) );
-  }, []);
+  });
 
     return (
         <EnrollmentContext.Provider value={{enrollments, setEnrollments}}>

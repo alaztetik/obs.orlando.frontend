@@ -10,7 +10,7 @@ export const ExpenseProvider = ({children}) => {
         fetch(`${process.env.REACT_APP_PROD_BACKEND_URL}/api/v0/expenses`)
             .then((data) => data.json())
             .then((data) => setExpenses(data));
-    }, []);
+    });
 
     return (
         <ExpenseContext.Provider value={{expenses, setExpenses}}>
