@@ -202,7 +202,7 @@ export default function StudentForm(props) {
           />
         </FormElement>
 
-        <FormElement labelName="Öğrenci Özet Notu:">
+        <FormElement labelName="Öğrenci Özel Notu:">
           <input
             name="studentNotes"
             type="text"

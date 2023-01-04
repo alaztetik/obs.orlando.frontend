@@ -97,3 +97,93 @@ export function formatDate(stringDate) {
     const date = moment(stringDate).format('ll');
     return date;
 }
+
+
+export function formatPreferredLanguage(language) {
+    switch (language) {
+        case "english":
+            return "İngilizce";
+        case "german":
+            return "Almanca";
+        case "french":
+            return "Fransızca";
+        case "spanish":
+            return "İspanyolca";
+        case "italian":
+            return "İtalyanca";
+        case "russian":
+            return "Rusça";
+        case "arabic":
+            return "Arapça";
+        default:
+            break;
+    }
+}
+
+
+export function formatPreferredCourseType(courseType) {
+    switch (courseType) {
+        case "1_1":
+            return "1+1";
+        case "2_1":
+            return "2+1";
+        case "3_1":
+            return "3+1";
+        case "4_2":
+            return "4+2";
+        case "private":
+            return "Özel Ders";
+        case "examPrivate":
+            return "Sınav (Özel)";
+        case "examGroup":
+            return "Sınav (Grup)";
+        case "kidsFall":
+            return "Kids Güz Dönemi";
+        case "kidsSummer":
+            return "Kids Yaz Dönemi";
+        default:
+            break;
+    }
+}
+
+
+export function formatPreferredDays(days) {
+    switch (days) {
+        case "mondayAndWednesday":
+            return "Pazartesi - Çarşamba";
+        case "tuesdayAndThursday":
+            return "Salı - Perşembe";
+        case "saturdayAndSunday":
+            return "Cumartesi - Pazar";
+        case "other":
+            return "Diğer";
+        default:
+            break;
+    }
+}
+
+
+export function formatPreferredHours(hours) {
+    switch (hours) {
+        case "9_12":
+            return "09:00 - 12:10";
+        case "12_15":
+            return "12:30 - 15:40";
+        case "16_19":
+            return "16:00 - 19:10";
+        case "19_22":
+            return "19:30 - 22:40";
+        case "other":
+            return "Diğer";
+        default:
+            break;
+    }
+}
+
+
+export function formatLanguageLevel(level) {
+    if (level === "other") {
+        return "Diğer";
+    }
+    return level;
+}

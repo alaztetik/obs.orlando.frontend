@@ -26,13 +26,18 @@ export default function Payments() {
 
   return (
     <>
-      {/* <MainSection>
-        <Button buttonText="Ödeme Planları" link="/payments" />
-        <Button buttonText="Ödeme Al" link="/payments/payment" />
-      </MainSection> */}
       <MainSection>
         {isAllowed() && <Button buttonText="Giderler" link="/payments/expenses" />}
-      <Button buttonText="Gider Ekle" link="/payments/expense" />
+        <Button buttonText="Gider Ekle" link="/payments/expense" />
+      </MainSection>
+      
+      <MainSection>
+        <Button buttonText="Ödeme Planları" link="/payments" />
+        <Button buttonText="Ödeme Planı Oluştur" link="/payments/paymentplanform" />
+      </MainSection>
+
+      <MainSection>
+        <Button buttonText="Ödeme Al" link="/payments" />
       </MainSection>
     </>
   );

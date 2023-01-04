@@ -18,6 +18,7 @@ import Expenses from "./pages/payments/Expenses";
 import ExpenseForm from "./pages/payments/ExpenseForm";
 import ReceivePayment from "./pages/payments/ReceivePayment";
 import RequireAuth from "./components/auth/RequireAuth";
+import PaymentPlanForm from "./pages/payments/PaymentPlanForm";
 
 export default function App() {
   
@@ -64,6 +65,7 @@ export default function App() {
                 element={<RequireAuth allowedRoles={["admin", "founder", "manager"]}/>}
               >
                 <Route path="/payments/expenses" element={<Expenses />} />
+                <Route path="/payments/paymentplanform" element={<PaymentPlanForm />} />
               </Route>
 
               <Route

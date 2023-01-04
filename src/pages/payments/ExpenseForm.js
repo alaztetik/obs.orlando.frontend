@@ -12,11 +12,11 @@ export default function ExpenseForm() {
     const UserAuthContext = useContext(AuthContext);
 
     const [expenseForm, setExpenseForm] = useState({
-        expenseType: "",
+        expenseType: "startup",
         description: "",
         personPayed: UserAuthContext.auth.username,
         payDate: "",
-        paymentMethod: "",
+        paymentMethod: "creditCardCorporate",
         payAmounth: 0,
     });
 

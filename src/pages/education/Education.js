@@ -8,7 +8,7 @@ export default function Education() {
         <Button buttonText="Ders Kayıtları" link="/education/enrollments" />
         <Button buttonText="Ders Kaydı Oluştur" link="/education/enrollment" />
       </MainSection>
-      {/* <MainSection>
+      {/* <MainSection> 
         <Button buttonText="Gruplar" link="/education/groups" />
         <Button buttonText="Grup Oluştur" link="/education/group" />
         <Button buttonText="Ders Takvimi" link="/education" />

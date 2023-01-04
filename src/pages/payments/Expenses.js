@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer, useState, useContext } from "react";
 import Expense from "../../components/expense/Expense";
 import ExpenseFilter from "../../components/expense/ExpenseFilter";
 import ExpenseFiltersWrapper from "../../components/expense/ExpenseFiltersWrapper";
@@ -10,6 +10,7 @@ import {
     formatDate,
 } from "../../utils/formats";
 import { monthNames } from "../../utils/constants";
+import ExpenseContext from "../../context/ExpenseContext";
 
 
 const filterReducer = (state, action) => {
@@ -47,7 +48,7 @@ const filterReducer = (state, action) => {
 
 export default function Expenses() {
 
-    const [expenses, setExpenses] = useState([]);
+    const {expenses} = useContext(ExpenseContext);
 
 
     const [filters, dispatch] = useReducer(filterReducer, {
@@ -57,12 +58,6 @@ export default function Expenses() {
         year: "",
         month: ""
     });
-
-    useEffect(() => {
-        fetch(`${process.env.REACT_APP_PROD_BACKEND_URL}/api/v0/expenses`)
-            .then((data) => data.json())
-            .then((data) => setExpenses(data));
-    }, []);
 
     let numberOfExpenses = expenses.length;
 
