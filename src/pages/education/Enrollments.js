@@ -12,16 +12,16 @@ export default function Enrollments() {
 
     const enrollments = React.useContext(EnrollmentContext).enrollments;
 
-    const [query, setQuery] = React.useState("");
+    /* const [query, setQuery] = React.useState("");
 
-    /* function getSearchInput(input) {
+     function getSearchInput(input) {
         setQuery(input.toLowerCase());
     } */
     // TODO fix search bug (below)
 
-    const searchedData = enrollments.filter( (enrollment) => Object.values(enrollment).join().toLowerCase().includes(query) );
+    /* const searchedData = enrollments.filter( (enrollment) => Object.values(enrollment).join().toLowerCase().includes(query) ); */
 
-    let numberOfEnrollments = searchedData.length;
+    /* let numberOfEnrollments = searchedData.length; */
 
     function getStudentName(studentId) {
         const student = students.find( (student) => student._id === studentId );
@@ -33,16 +33,16 @@ export default function Enrollments() {
             {/* <EnrollmentSearch inputSearch={getSearchInput} /> */}
             {/* TODO fix search bug */}
 
-            <p className='m-2'>
+            {/* <p className='m-2'>
                 Toplam Ders Kaydı: <span className='font-bold'>{numberOfEnrollments}</span>
-            </p>
+            </p> */}
 
             <EnrollmentWrapper>
-                {searchedData.map( (enrollment) => {
+                {enrollments.map( (enrollment) => {
                     return (
                         <Enrollment
                             key={enrollment._id}
-                            no={numberOfEnrollments--}
+                            /* no={numberOfEnrollments--} */
                             student={getStudentName(enrollment.student)}
                             preferredLanguage={formatPreferredLanguage(enrollment.preferredLanguage)}
                             preferredCourseType={formatPreferredCourseType(enrollment.preferredCourseType)}
