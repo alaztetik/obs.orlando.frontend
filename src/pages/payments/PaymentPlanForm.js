@@ -1,10 +1,14 @@
 import FormElement from "../../components/form/FormElement";
 import Installment from "../../components/installment/Installment";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import EnrollmentContext from "../../context/EnrollmentContext";
+import { formatPreferredLanguage } from "../../utils/formats";
+
 
 export default function PaymentPlanForm() {
 
   const [paymentPlanForm, setPaymentPlanForm] = useState({
+    enrollmentId: "",
     agreedTotalPayment: 0,
     paymentMethod: "cash",
     contractDate: "",
@@ -67,12 +71,46 @@ export default function PaymentPlanForm() {
         };
       });
     }
+
+    console.log(paymentPlanForm);
   }
+
+  const enrollmentContext = useContext(EnrollmentContext).enrollments;
+
+  const students = [] // TODO
+
+  function getStudentNameFromId(studentId) {
+    const student = students.find((student) => student._id === studentId);
+    return `${student.firstName} ${student.lastName}`;
+  }
+
+  const enrollmentAndStudentOptions = enrollmentContext.map((enrollment) => { 
+    return (
+      <option
+        key={enrollment._id}
+        value={enrollment._id}
+      >
+        {getStudentNameFromId(enrollment.student)} - {formatPreferredLanguage(enrollment.preferredLanguage)}
+      </option>
+    );
+  });
 
   return (
     <div className="studentform flex w-full justify-center">
       <form className="flex flex-col basis-2/3" onSubmit={handleSubmit}>
         <h3 className="text-center p-3 text-lg font-bold">Ödeme Planı</h3>
+
+        <FormElement labelName="Öğrenci - Ders Kaydı">
+          <select
+          name="enrollmentId"
+          required
+          value={paymentPlanForm.enrollmentId}
+          onChange={handlePaymentChange}
+          >
+            <option key="fixed" value="">Öğrenci Ders Kaydı Seçin...</option>
+            {enrollmentAndStudentOptions}
+          </select>
+        </FormElement>
 
         <FormElement labelName="Sözleşme Tarihi:">
           <input
@@ -126,10 +164,10 @@ export default function PaymentPlanForm() {
 
         <FormElement labelName="Ödeme Özel Notu:">
           <input
-            name="enrollmentNotes"
+            name="paymentNotes"
             type="text"
             onChange={handlePaymentChange}
-            value={paymentPlanForm.enrollmentNotes}
+            value={paymentPlanForm.paymentNotes}
           />
         </FormElement>
 

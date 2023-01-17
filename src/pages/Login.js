@@ -47,7 +47,7 @@ export default function Login() {
       if (!response.ok) {
         setAuth({username: 'none', role: 'none'});
         setErrorOnLogin(true);
-        throw new Error(`Error! status: ${response.status}`); // TODO handle this error
+        throw new Error(`Error! status: ${response.status}`);
         
       }
 

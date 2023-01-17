@@ -2,18 +2,16 @@ import Student from "../../components/students/Student";
 import StudentWrapper from "../../components/students/StudentWrapper";
 import StudentSearch from "../../components/students/StudentSearch";
 import { useState, useContext } from "react";
-import StudentContext from "../../context/StudentContext";
+import { getStudents } from "../../api/students";
+import { useQuery } from "react-query";
+
 
 export default function StudentsAll() {
-    /* const [students, setStudents] = useState([]); */
 
-    /* useEffect(() => {
-          fetch(`${process.env.REACT_APP_PROD_BACKEND_URL}/api/v0/students`)
-            .then((data) => data.json())
-            .then((data) => setStudents(data));
-    }, []); */
-
-    const students = useContext(StudentContext).students;
+    const { status, error, data: students = [] } = useQuery({
+        queryKey: ["students"],
+        queryFn: getStudents,
+    });
 
     const [query, setQuery] = useState("");
 
@@ -26,6 +24,10 @@ export default function StudentsAll() {
     );
 
     let numberOfStudents = searchedData.length;
+
+    if (status !== "success") {
+        return <div className="studens-all">Öğrenciler yükleniyor...</div>;
+    };
 
     return (
         <div className="studens-all">

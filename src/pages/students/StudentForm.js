@@ -3,8 +3,20 @@ import React, { useContext } from "react";
 import AuthContext from "../../context/AuthProvider";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { addStudent } from "../../api/students";
+import { useMutation, useQueryClient } from "react-query";
 
 export default function StudentForm(props) {
+  const queryClient = useQueryClient();
+
+  const { status, error, mutate } = useMutation({
+    mutationFn: addStudent,
+    onSuccess: (newStudent) => {
+      queryClient.setQueryData(["students"], (prevStudents) => {
+        return [...prevStudents, newStudent];
+      });
+    },
+  });
 
   const UserAuthContext = useContext(AuthContext);
 
@@ -32,46 +44,23 @@ export default function StudentForm(props) {
   const [errorState, setErrorState] = useState(false);
 
   const handleChange = (event) => {
-    const {name, value} = event.target;
+    const { name, value } = event.target;
 
-    setStudentForm(prev => {
+    setStudentForm((prev) => {
       return {
         ...prev,
-        [name]: value
+        [name]: value,
       };
     });
   };
 
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitButtonDisabled(true);
-
-    try {
-      const response = await fetch(`${process.env.REACT_APP_PROD_BACKEND_URL}/api/v0/students`, {
-        method: "POST",
-        body: JSON.stringify(studentForm),
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error! status: ${response.status}`);
-      }
-
-      const result = await response.json();
-
-      console.log(result);
-      setErrorState(false);
-      navigate('/students/students');
-    } catch (err) {
-      console.log("Error:", err);
-      setErrorState(true);
-      
-    }
+    mutate(studentForm);
+    navigate("/students/");
   };
 
   return (
@@ -79,7 +68,11 @@ export default function StudentForm(props) {
       <form className="flex flex-col basis-2/3" onSubmit={handleSubmit}>
         <h3 className="text-center p-3 text-lg font-bold">Öğrenci Bilgileri</h3>
 
-        {errorState && <p className="border text-center mb-3">Formu dikkatli doldurunuz...</p>}
+        {errorState && (
+          <p className="border text-center mb-3">
+            Formu dikkatli doldurunuz...
+          </p>
+        )}
 
         <FormElement labelName="Ad:">
           <input
@@ -260,7 +253,10 @@ export default function StudentForm(props) {
           />
         </FormElement>
 
-        <button disabled={isSubmitButtonDisabled} className="p-1 m-1 mt-6 border rounded bg-orlando-gray hover:bg-orlando-orange text-orlando-white hover:text-orlando-gray disabled:bg-gray-600 disabled:text-black">
+        <button
+          disabled={isSubmitButtonDisabled}
+          className="p-1 m-1 mt-6 border rounded bg-orlando-gray hover:bg-orlando-orange text-orlando-white hover:text-orlando-gray disabled:bg-gray-600 disabled:text-black"
+        >
           Ekle
         </button>
       </form>

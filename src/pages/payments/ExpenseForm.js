@@ -2,8 +2,21 @@ import { useContext, useState } from "react";
 import FormElement from "../../components/form/FormElement";
 import AuthContext from "../../context/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import { addExpense } from "../../api/expenses";
+import { useMutation, useQueryClient } from "react-query";
 
 export default function ExpenseForm() {
+
+    const queryClient = useQueryClient();
+
+    const { status, error, mutate } = useMutation({
+        mutationFn: addExpense,
+        onSuccess: (newExpense) => {
+            queryClient.setQueryData(["expenses"], (prevExpenses) => {
+                return [...prevExpenses, newExpense];
+            });
+        },
+    });
 
     const navigate = useNavigate();
 
@@ -32,23 +45,7 @@ export default function ExpenseForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setButtonDisabled(true);
-        try {
-            const response = await fetch(`${process.env.REACT_APP_PROD_BACKEND_URL}/api/v0/expenses`, {
-                method: 'POST',
-                body: JSON.stringify(expenseForm),
-                headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json"
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error(`Error! status: ${response.status}`);
-            }
-
-        } catch (error) {
-            setButtonDisabled(false);
-        }
+        mutate(expenseForm);
         navigate('/payments/expenses');
     }
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState, useContext } from "react";
+import React, { useReducer } from "react";
 import Expense from "../../components/expense/Expense";
 import ExpenseFilter from "../../components/expense/ExpenseFilter";
 import ExpenseFiltersWrapper from "../../components/expense/ExpenseFiltersWrapper";
@@ -10,10 +10,13 @@ import {
     formatDate,
 } from "../../utils/formats";
 import { monthNames } from "../../utils/constants";
-import ExpenseContext from "../../context/ExpenseContext";
+import { useQuery } from "react-query";
+import { getExpenses } from "../../api/expenses";
 
 
 const filterReducer = (state, action) => {
+
+
     switch(action.type) {
         case 'SET_PAYMENT_TYPE':
             return {
@@ -48,8 +51,10 @@ const filterReducer = (state, action) => {
 
 export default function Expenses() {
 
-    const {expenses} = useContext(ExpenseContext);
-
+    const { status, error, data: expenses = [] } = useQuery({
+        queryKey: ["expenses"],
+        queryFn: getExpenses,
+    });
 
     const [filters, dispatch] = useReducer(filterReducer, {
         paymentType: "",
@@ -73,10 +78,10 @@ export default function Expenses() {
 
 
     const filteredExpenses = expenses.filter(expense => {
-        return expense.expenseType.includes(filters.paymentType)
-            && expense.paymentMethod.includes(filters.paymentMethod)
-            && expense.personPayed.includes(filters.payer)
-            && expense.payDate.includes(filters.year)
+        return expense?.expenseType?.includes(filters.paymentType)
+            && expense?.paymentMethod?.includes(filters.paymentMethod)
+            && expense?.personPayed?.includes(filters.payer)
+            && expense?.payDate?.includes(filters.year)
     });
 
 
@@ -192,6 +197,10 @@ export default function Expenses() {
             type: 'SET_MONTH',
             payload: value
         });
+    }
+
+    if (status === "loading") {
+        return <div>Giderler yükleniyor...</div>;
     }
 
     return (

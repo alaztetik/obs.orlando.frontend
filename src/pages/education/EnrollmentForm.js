@@ -2,8 +2,27 @@ import { useState, useEffect, useContext } from "react";
 import AuthContext from "../../context/AuthProvider";
 import FormElement from "../../components/form/FormElement";
 import { useNavigate } from "react-router-dom";
+import { useMutation, useQueryClient, useQuery } from "react-query";
+import { addEnrollment } from "../../api/enrollments";
+import { getStudents } from "../../api/students";
 
 export default function EnrollmentForm() {
+
+    const queryClient = useQueryClient();
+
+    const { status, error, mutate } = useMutation({
+        mutationFn: addEnrollment,
+        onSuccess: (newEnrollment) => {
+            queryClient.setQueryData(["enrollments"], (prevEnrollments) => {
+                return [...prevEnrollments, newEnrollment];
+            });
+        },
+    });
+
+    const { data: students, status: studentsStatus, error: studentsError } = useQuery({
+        queryKey: ["students"],
+        queryFn: getStudents,
+    });
 
     const UserAuthContext = useContext(AuthContext);
 
@@ -23,14 +42,6 @@ export default function EnrollmentForm() {
         creator: UserAuthContext.auth.username,
     });
 
-    const [students, setStudents] = useState([]);
-    
-    useEffect(() => {
-          fetch(`${process.env.REACT_APP_PROD_BACKEND_URL}/api/v0/students`)
-            .then((data) => data.json())
-            .then((data) => setStudents(data));
-    }, []);
-
     let selectedStudentNotes = students.find(student => student._id === enrollmentForm?.student)?.studentNotes;
 
     const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(false);
@@ -44,29 +55,11 @@ export default function EnrollmentForm() {
         });
     }
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
         setIsSubmitButtonDisabled(true);
-
-        try {
-            const response = await fetch(`${process.env.REACT_APP_PROD_BACKEND_URL}/api/v0/enrollments`, { // TODO check url
-                method: "POST",
-                body: JSON.stringify(enrollmentForm),
-                headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                },
-            });
-
-            if (!response.ok) {
-                throw new Error(`Error! status: ${response.status}`);
-            }
-            const result = await response.json();
-
-            navigate('/education');
-        } catch (error) {
-            console.log("Error: ", error); // TODO log error
-        }
+        mutate(enrollmentForm);
+        navigate('/education/');
     }
 
     const studentOptions = students.map(student => {
