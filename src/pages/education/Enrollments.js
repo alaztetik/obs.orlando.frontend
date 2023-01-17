@@ -12,6 +12,7 @@ import {
 import { useQuery } from "react-query";
 import { getEnrollments } from "../../api/enrollments";
 import { getStudents } from "../../api/students";
+import { Dna } from "react-loader-spinner";
 
 export default function Enrollments() {
   const {
@@ -38,7 +39,16 @@ export default function Enrollments() {
   }
 
   if (studentStatus !== "success" || enrollmentStatus !== "success") {
-    return <div className="enrollments-all">Ders kayıtları yükleniyor...</div>;
+    return <div className="top-10 grid justify-items-center align-middle">
+    <Dna
+      visible={true}
+      height="100"
+      width="100"
+      ariaLabel="dna-loading"
+      wrapperStyle={{}}
+      wrapperClass="dna-wrapper"
+    />
+  </div>
   }
 
   let numberOfEnrollments = enrollments.length;

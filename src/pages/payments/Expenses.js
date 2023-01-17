@@ -12,6 +12,7 @@ import {
 import { monthNames } from "../../utils/constants";
 import { useQuery } from "react-query";
 import { getExpenses } from "../../api/expenses";
+import { Dna } from "react-loader-spinner";
 
 
 const filterReducer = (state, action) => {
@@ -200,7 +201,16 @@ export default function Expenses() {
     }
 
     if (status === "loading") {
-        return <div>Giderler yükleniyor...</div>;
+        return <div className="top-10 grid justify-items-center align-middle">
+        <Dna
+          visible={true}
+          height="100"
+          width="100"
+          ariaLabel="dna-loading"
+          wrapperStyle={{}}
+          wrapperClass="dna-wrapper"
+        />
+      </div>
     }
 
     return (
