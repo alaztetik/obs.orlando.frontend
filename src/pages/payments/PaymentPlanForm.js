@@ -1,11 +1,40 @@
 import FormElement from "../../components/form/FormElement";
 import Installment from "../../components/installment/Installment";
 import { useState, useContext } from "react";
-import EnrollmentContext from "../../context/EnrollmentContext";
 import { formatPreferredLanguage } from "../../utils/formats";
+import { useQuery, useQueryClient, useMutation } from "react-query";
+import { getEnrollments } from "../../api/enrollments";
+import { getStudents } from "../../api/students";
+import { Dna } from "react-loader-spinner";
+import AuthContext from "../../context/AuthProvider";
+import { addPaymentPlan } from "../../api/paymentPlans";
+import { useNavigate } from "react-router-dom";
 
 
 export default function PaymentPlanForm() {
+
+  const queryClient = useQueryClient();
+
+  const { mutate: mutatePaymentPlan } = useMutation({
+    mutationFn: addPaymentPlan,
+    onSuccess: (newPaymentPlan) => {
+      queryClient.setQueryData(["paymentPlans"], (prevPaymentPlans) => {
+        return [...prevPaymentPlans, newPaymentPlan];
+      });
+    },
+  });
+
+  const { status: enrollmentsStatus, data: enrollments = [] } = useQuery({
+    queryKey: ["enrollments"],
+    queryFn: getEnrollments,
+  });
+
+  const { status: studentsStatus, data: students = [] } = useQuery({
+    queryKey: ["students"],
+    queryFn: getStudents,
+  });
+
+  const UserAuthContext = useContext(AuthContext);
 
   const [paymentPlanForm, setPaymentPlanForm] = useState({
     enrollmentId: "",
@@ -13,87 +42,166 @@ export default function PaymentPlanForm() {
     paymentMethod: "cash",
     contractDate: "",
     paymentInAdvance: 0,
+    leftPaymentDate: "",
     paymentNotes: "",
-    installments: [], // [id]
+    installmentsCount: 0,
+    installments: [],
+    creator: UserAuthContext.auth.username,
   });
 
-  const [paymentMethod, setPaymentMethod] = useState("cash");
-
-  const [numberOfInstallments, setNumberOfInstallments] = useState(2);
+  const navigate = useNavigate();
 
   const installmentComponents = [];
 
-  for (let i = 0; i < numberOfInstallments; i++) {
+  for (let i = 0; i < paymentPlanForm.installmentsCount; i++) {
     installmentComponents.push(
       <Installment handleChange={handlePaymentChange} key={i} number={i + 1} />
     );
   }
 
-  // TODO use installment state
-  const [installmentsState, setInstallmentsState] = useState([]);
+  const paymentLeft =
+    paymentPlanForm.agreedTotalPayment - paymentPlanForm.paymentInAdvance;
 
-  const paymentLeft = paymentPlanForm.agreedTotalPayment - paymentPlanForm.paymentInAdvance;
+  const [balanceWarning, setBalanceWarning] = useState(false);
 
   function handlePaymentChange(event) {
+
+    if (event.target.name.includes("installmentAmount")) {
+      let number = event.target.name.slice(-1);
+      
+      setPaymentPlanForm(prev => {
+
+        let obj = {
+          ...prev
+        };
+
+        obj.installments[number-1] = {
+          ...prev.installments[number-1],
+          installmentAmount: parseInt(event.target.value)
+        }
+
+        return obj;
+      });
+    }
+
+    if (event.target.name.includes("installmentPaymentDate")) {
+      let number = event.target.name.slice(-1);
+
+      setPaymentPlanForm(prev => {
+
+        let obj = {
+          ...prev
+        };
+
+        obj.installments[number-1] = {
+          ...prev.installments[number-1],
+          installmentPaymentDate: event.target.value
+        }
+
+        return obj;
+      });
+    }
+
     if (event.target.name === "paymentMethod") {
-      setPaymentMethod(event.target.value);
+      setPaymentPlanForm((prev) => {
+        return {
+          ...prev,
+          paymentMethod: event.target.value,
+          installmentsCount: event.target.value === "cash" ? 0 : 2,
+          installments: event.target.value === "cash" ? [] : prev.installments,
+        };
+      });
     }
 
-    if (event.target.name === "numberOfInstallments") {
-      setNumberOfInstallments(event.target.value);
+    if (event.target.name === "enrollmentId" || event.target.name === "contractDate" || event.target.name === "leftPaymentDate" || event.target.name === "paymentNotes") {
+      setPaymentPlanForm(prev => {
+        return {
+          ...prev,
+          [event.target.name]: event.target.value,
+        };
+      })
     }
 
-    setPaymentPlanForm((prev) => {
-      return {
-        ...prev,
-        [event.target.name]: event.target.value,
-      };
-    });
+    if (
+      event.target.name === "agreedTotalPayment" ||
+      event.target.name === "paymentInAdvance" ||
+      event.target.name === "installmentsCount"
+    ) {
+      setPaymentPlanForm((prev) => {
+          return {
+            ...prev,
+            [event.target.name]: parseInt(event.target.value),
+          };
+        });
+    } 
   }
 
   function handleSubmit(event) {
     event.preventDefault();
 
-    if (paymentPlanForm.paymentMethod === "installments") {
-      const installmentObjects = [];
-
-      for (let i = 1; i <= numberOfInstallments; i++) {
-        installmentObjects.push({
-          installmentAmount: event.target[`amount${i}`].value,
-          installmentPaymentDate: event.target[`paymentDate${i}`].value,
-          isPayed: false,
-        });
-      }
-      setPaymentPlanForm((prev) => {
-        return {
-          ...prev,
-          installments: installmentObjects,
-        };
-      });
+    if (checkBalance()) {
+      // submit
+      setBalanceWarning(false);
+    } else {
+      // warn
+      setBalanceWarning(true);
     }
 
+    mutatePaymentPlan(paymentPlanForm);
     console.log(paymentPlanForm);
   }
 
-  const enrollmentContext = useContext(EnrollmentContext).enrollments;
+  function checkBalance() {
+    if (paymentPlanForm.paymentMethod === "cash") {
+      return (
+        paymentPlanForm.agreedTotalPayment >= paymentPlanForm.paymentInAdvance
+      );
+    } else if (paymentPlanForm.paymentMethod === "installments") {
+      let installmentsTotal = 0;
+      for (let i = 0; i < paymentPlanForm.installmentsCount; i++) {
+        installmentsTotal += paymentPlanForm.installments[i]?.installmentAmount;
+      }
+      return (
+        paymentPlanForm.agreedTotalPayment ===
+        paymentPlanForm.paymentInAdvance + installmentsTotal
+      );
+    }
+  }
 
-  const students = [] // TODO
+  function toggleBalanceWarningComponent() {
+    const BalanceWarningComponent = <></>;
+
+
+  }
 
   function getStudentNameFromId(studentId) {
     const student = students.find((student) => student._id === studentId);
-    return `${student.firstName} ${student.lastName}`;
+    return `${student?.firstName} ${student?.lastName}`;
   }
 
-  const enrollmentAndStudentOptions = enrollmentContext.map((enrollment) => { 
+  const enrollmentAndStudentOptions = enrollments.map((enrollment) => {
     return (
-      <option
-        key={enrollment._id}
-        value={enrollment._id}
-      >
-        {getStudentNameFromId(enrollment.student)} - {formatPreferredLanguage(enrollment.preferredLanguage)}
+      <option key={enrollment?._id} value={enrollment?._id}>
+        {getStudentNameFromId(enrollment?.student)} -{" "}
+        {formatPreferredLanguage(enrollment?.preferredLanguage)}
       </option>
     );
   });
+
+  if (enrollmentsStatus === "loading" || studentsStatus === "loading") {
+    return (
+      <div className="top-10 grid justify-items-center align-middle">
+        <Dna
+          visible={true}
+          height="100"
+          width="100"
+          ariaLabel="dna-loading"
+          wrapperStyle={{}}
+          wrapperClass="dna-wrapper"
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="studentform flex w-full justify-center">
@@ -102,12 +210,14 @@ export default function PaymentPlanForm() {
 
         <FormElement labelName="Öğrenci - Ders Kaydı">
           <select
-          name="enrollmentId"
-          required
-          value={paymentPlanForm.enrollmentId}
-          onChange={handlePaymentChange}
+            name="enrollmentId"
+            required
+            value={paymentPlanForm.enrollmentId}
+            onChange={handlePaymentChange}
           >
-            <option key="fixed" value="">Öğrenci Ders Kaydı Seçin...</option>
+            <option key="fixed" value="">
+              Öğrenci Ders Kaydı Seçin...
+            </option>
             {enrollmentAndStudentOptions}
           </select>
         </FormElement>
@@ -145,22 +255,21 @@ export default function PaymentPlanForm() {
           ></input>
         </FormElement>
 
-        <FormElement labelName="Kalan Ödeme:">
-          <p className="text-left">{paymentLeft}</p>
+        <FormElement active={false} labelName="Kalan Ödeme:">
+          <p className="text-left text-gray-500 cursor-not-allowed">{paymentLeft}</p>
         </FormElement>
 
-        {paymentLeft > 0 && 
-
-        <FormElement labelName="Kalan Ödeme Tarihi:">
+        {paymentLeft > 0 && (
+          <FormElement labelName="Kalan Ödeme Tarihi:">
             <input
-              name="contractDate"
+              name="leftPaymentDate"
               type="date"
               required
               onChange={handlePaymentChange}
-              value={paymentPlanForm.contractDate}
+              value={paymentPlanForm.leftPaymentDate}
             />
           </FormElement>
-    }
+        )}
 
         <FormElement labelName="Ödeme Özel Notu:">
           <input
@@ -183,11 +292,11 @@ export default function PaymentPlanForm() {
           </select>
         </FormElement>
 
-        {paymentMethod === "installments" ? (
+        {paymentPlanForm.paymentMethod === "installments" ? (
           <>
             <FormElement labelName="Taksit Sayısı">
               <select
-                name="numberOfInstallments"
+                name="installmentsCount"
                 required
                 onChange={handlePaymentChange}
               >
@@ -204,6 +313,13 @@ export default function PaymentPlanForm() {
             <h4 className="text-center mt-3 mb-1">Taksit Detayları:</h4>
 
             {installmentComponents}
+
+            {balanceWarning && (
+          <p className="text-center text-red-700">
+            Peşinat ve taksitlerin toplamı, sözleşme toplam tutarından fazla olamaz.
+            </p>
+            )
+        }
           </>
         ) : (
           <></>

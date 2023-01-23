@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient, useQuery } from "react-query";
 import { addEnrollment } from "../../api/enrollments";
 import { getStudents } from "../../api/students";
+import { Dna } from "react-loader-spinner";
 
 export default function EnrollmentForm() {
 
@@ -70,6 +71,21 @@ export default function EnrollmentForm() {
             >{student.firstName + ' ' + student.lastName}</option>
         );
     });
+
+    if (studentsStatus === "loading") {
+        return (
+            <div className="top-10 grid justify-items-center align-middle">
+              <Dna
+                visible={true}
+                height="100"
+                width="100"
+                ariaLabel="dna-loading"
+                wrapperStyle={{}}
+                wrapperClass="dna-wrapper"
+              />
+            </div>
+          );
+    }
 
 
     return (

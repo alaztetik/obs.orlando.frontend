@@ -2,12 +2,12 @@ import FormElement from "../form/FormElement";
 
 export default function Installment(props) {
     return (
-        <>
+        <div className="p-1">
             <FormElement
-                labelName={props.number.toString() + ". Taksit Miktarı:"}
+                labelName={"Taksit Miktarı (" + props.number.toString() + ") :"}
             >
                 <input
-                    name={"amount".concat(props.number)}
+                    name={"installmentAmount".concat(props.number)}
                     type="number"
                     placeholder="... ₺"
                     min={0}
@@ -15,17 +15,16 @@ export default function Installment(props) {
                 />
             </FormElement>
 
-            <FormElement labelName="Ödeme Tarihi:">
+            <FormElement labelName={"Taksit Ödeme Tarihi (" + props.number.toString() + ") :"}>
                 <input
-                    name={"paymentDate".concat(props.number)}
+                    name={"installmentPaymentDate".concat(props.number)}
                     type="date"
-                    placeholder="... ₺"
                     required
                     onChange={props.handleChange}
                 />
             </FormElement>
 
             <br />
-        </>
+        </div>
     );
 }
