@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Enrollment from "../../components/enrollments/Enrollment";
-import EnrollmentSearch from "../../components/enrollments/EnrollmentSearch";
 import EnrollmentWrapper from "../../components/enrollments/EnrollmentWrapper";
 import {
   formatPreferredCourseType,
@@ -17,7 +16,6 @@ import { Dna } from "react-loader-spinner";
 export default function Enrollments() {
   const {
     status: enrollmentStatus,
-    error: enrollmentError,
     data: enrollments = [],
   } = useQuery({
     queryKey: ["enrollments"],
@@ -26,7 +24,6 @@ export default function Enrollments() {
 
   const {
     status: studentStatus,
-    error: studentError,
     data: students = [],
   } = useQuery({
     queryKey: ["students"],

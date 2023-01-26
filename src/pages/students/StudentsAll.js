@@ -9,7 +9,6 @@ import { Dna } from "react-loader-spinner";
 export default function StudentsAll() {
   const {
     status,
-    error,
     data: students = [],
   } = useQuery({
     queryKey: ["students"],

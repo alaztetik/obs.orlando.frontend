@@ -198,10 +198,11 @@ export default function ExpenseEditModal({ expense }) {
             </Modal>
 
             <Group position="center">
-                <Button onClick={() => setOpened(true)}>
+                <Button color="orange" onClick={() => setOpened(true)}>
                     <img
                         src="https://img.icons8.com/external-anggara-basic-outline-anggara-putra/24/000000/external-edit-ui-basic-anggara-basic-outline-anggara-putra.png"
                         alt="edit"
+                        className="min-w-fit"
                     />
                 </Button>
             </Group>

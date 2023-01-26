@@ -17,7 +17,6 @@ import { Dna } from "react-loader-spinner";
 
 const filterReducer = (state, action) => {
 
-
     switch(action.type) {
         case 'SET_PAYMENT_TYPE':
             return {
@@ -52,7 +51,7 @@ const filterReducer = (state, action) => {
 
 export default function Expenses() {
 
-    const { status, error, data: expenses = [] } = useQuery({
+    const { status, data: expenses = [] } = useQuery({
         queryKey: ["expenses"],
         queryFn: getExpenses,
     });

@@ -3,7 +3,7 @@
 export default function Enrollment(props) {
 
   return (
-    <tr>
+    <tr className="border hover:bg-slate-400">
       <td className="border px-2 text-orlando-orange text-center">{props.no}</td>
       <td className="border px-2">{props.student}</td>
       <td className="border px-2">{props.preferredLanguage}</td>

@@ -148,7 +148,7 @@ export default function PaymentPlanForm() {
     }
 
     mutatePaymentPlan(paymentPlanForm);
-    console.log(paymentPlanForm);
+    navigate("/payments");
   }
 
   function checkBalance() {

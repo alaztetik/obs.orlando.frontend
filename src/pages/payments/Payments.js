@@ -32,7 +32,7 @@ export default function Payments() {
       </MainSection>
       
       <MainSection>
-        <Button buttonText="Ödeme Planları" link="/payments" />
+        <Button buttonText="Ödeme Planları" link="/payments/paymentplans" />
         <Button buttonText="Ödeme Planı Oluştur" link="/payments/paymentplanform" />
       </MainSection>
 

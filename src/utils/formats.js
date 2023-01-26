@@ -1,4 +1,5 @@
 import moment from "moment";
+import 'moment/locale/tr';
 
 export function formatUsername(username) {
     switch (username) {
@@ -92,10 +93,21 @@ export function formatPaymentMethod(method) {
 }
 
 
+export function formatPaymentType(type) {
+    switch (type) {
+        case "cash":
+            return "Nakit";
+        case "installments":
+            return "Taksit";
+        default:
+            return "Diğer";
+    }
+}
+
+
 export function formatDate(stringDate) {
-    moment.locale();
-    const date = moment(stringDate).format('ll');
-    return date;
+    const date = moment(stringDate);
+    return date.format('ll');
 }
 
 
