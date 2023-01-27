@@ -27,13 +27,13 @@ export default function Payments() {
   return (
     <>
       <MainSection>
-        {isAllowed() && <Button buttonText="Giderler" link="/payments/expenses" />}
-        <Button buttonText="Gider Ekle" link="/payments/expense" />
+        <Button buttonText="Ödeme Planları" link="/payments/paymentplans" />
+        <Button buttonText="Ödeme Planı Oluştur" link="/payments/paymentplanform" />
       </MainSection>
       
       <MainSection>
-        <Button buttonText="Ödeme Planları" link="/payments/paymentplans" />
-        <Button buttonText="Ödeme Planı Oluştur" link="/payments/paymentplanform" />
+        {isAllowed() && <Button buttonText="Giderler" link="/payments/expenses" />}
+        <Button buttonText="Gider Ekle" link="/payments/expense" />
       </MainSection>
 
       <MainSection>
